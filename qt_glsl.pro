@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,8 +13,16 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    glwidget.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    glwidget.h
 
 FORMS    += mainwindow.ui
+
+#glew类库
+win32{
+    INCLUDEPATH += $$PWD/otherLib/include
+    LIBS += -lglew32 -L$$PWD/otherLib/lib
+}
