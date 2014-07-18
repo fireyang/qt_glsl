@@ -1,5 +1,21 @@
 #include "glwidget.h"
 
+static const char gVertexShader[] = "attribute vec4 vPosition;\n"
+        "void main() {\n"
+         "  gl_Position = vPosition;\n"
+        "}\n";
+
+static const char gFragmentShader[] = "precision mediump float;\n"
+        "void main() {\n"
+         "  gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n"
+        "}\n";
+
+static GLfloat const vs[] = {
+    1.0f,1.0f,0.0f,
+    -1.0f,1.0f,0.0f,
+    -1.0f,-1.0f,0.0f
+};
+
 GLWidget::GLWidget(QWidget *parent) :
     QGLWidget(parent)
 {
@@ -7,6 +23,17 @@ GLWidget::GLWidget(QWidget *parent) :
 
 
 void GLWidget::initializeGL(){
+    shader.compileShaderFromString(gVertexShader,GLSLShader::VERTEX);
+    shader.compileShaderFromString(gFragmentShader,GLSLShader::FRAGMENT);
+    if(!shader.link())
+    {
+        std::cerr << "Shader failed to link\n";
+        return;
+    }
+
+    shader.use();
+
+    int handle =  shader.handle;
     //glClearColor(1,1,0,1);
     //glClear(GL_COLOR_BUFFER_BIT);
 }
