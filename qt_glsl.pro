@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     glwidget.cpp \
-    glslprogram.cpp
+    glslprogram.cpp \
+    testlua.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
-    glslprogram.h
+    glslprogram.h \
+    testlua.h
 
 FORMS    += mainwindow.ui
 
@@ -27,4 +29,10 @@ FORMS    += mainwindow.ui
 win32{
     INCLUDEPATH += $$PWD/otherLib/include
     LIBS += -lglew32 -L$$PWD/otherLib/lib
+}
+
+#lua
+win32{
+    INCLUDEPATH += $$PWD/otherLib/lua-5.1/src
+    LIBS += -llua51
 }
